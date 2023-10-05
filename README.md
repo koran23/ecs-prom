@@ -77,6 +77,7 @@ This project provides the following outputs:
 - Review the Terraform configuration files to customize settings such as instance types, image versions, and security groups to suit your requirements.
 - The EC2 instance's security group is open on ports 22 (SSH), 3000 (Grafana), and 9090 (Prometheus) for demonstration purposes. It's crucial to restrict these in a production environment.
 - Replace `<YOUR-LOAD-BALANCER-HERE>` in the `user_data` of the EC2 instance with the name of your load balancer, then reapply.
+**Sidenote**: You may have to exec into the SSH into the instance and run `sudo docker-compose up -d` manually.
 - The default region is us-east-1, but you can change it in the `vars.tf` file.
 - The default EC2 instance type is t2.micro. Ensure your AWS account has available t2.micro instances if you're using the AWS Free Tier.
 - The default key pair for the EC2 instance is `prom-keypair`. Ensure you have this key pair available in your AWS account or change it to a key pair you own.
