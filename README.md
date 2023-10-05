@@ -2,61 +2,85 @@
 
 *While I recognize that this might not be the optimal solution, it effectively serves as a valuable proof of concept (POC).*
 
-**Technologies Used**:
+# AWS Infrastructure Deployment with Terraform
 
-- **Terraform**: Utilized for infrastructure-as-code deployment.
-- **EC2**: Amazon Elastic Compute Cloud, offering scalable computing capacity.
-- **Prometheus**: Open-source monitoring and alerting toolkit.
-- **Grafana**: Open-source platform for monitoring and observability.
-- **ECS**: Amazon Elastic Container Service, managing Docker containers at scale.
-- **ECR**: Amazon Elastic Container Registry, storing Docker container images.
-- **Docker**: Platform to develop, ship, and run applications inside containers.
-- **Docker Compose**: Tool for defining and managing multi-container Docker applications.
-- **Python**: Scripting for service discovery. <---> This was fun...
+This project contains Terraform configurations to deploy a monitoring stack using Prometheus and Grafana on an EC2 instance, an ECS cluster for application deployment, an ECR repository for Docker images, and an Application Load Balancer (ALB) to distribute incoming application traffic.
 
-**Setup & Deployment**:
+## Table of Contents
 
-1. Adjust the variables to align with your specific objectives.
+- [Prerequisites](#prerequisites)
+- [Resources Created](#resources-created)
+- [Usage](#usage)
+- [Outputs](#outputs)
+- [Important Notes](#important-notes)
+- [Journey](#my-journey-with-the-project)
 
-2. Execute the following commands sequentially:
-   - `terraform init`
-   - `terraform plan`
-   - `terraform apply`
+## Prerequisites
 
-3. Navigate to the app folder: `cd app`
+To use this project, you'll need the following prerequisites:
 
-4. Execute `./push-to-ecr.sh` with your credentials.
+- AWS account
+- Terraform installed
+- AWS CLI configured with appropriate permissions
 
-![image info](images/script_variables.png)
+## Resources Created
 
-This can also be done manually, utilizing the push commands.
+This project creates the following AWS resources:
 
-![image info](images/push_commands.png)
+- **EC2 Instance**: An EC2 instance with Prometheus and Grafana set up using Docker and Docker Compose.
+- **ECS Cluster**: A cluster to run Docker containers.
+- **ECR Repository**: A repository to store Docker images.
+- **ALB**: An Application Load Balancer to distribute incoming application traffic.
+- **IAM Roles and Policies**: Necessary IAM roles and policies for ECS tasks and logging.
+- **VPC and Subnets**: Default VPC and subnets for resource deployment.
+- **Security Groups**: Security groups for EC2, ECS, and ALB.
 
-Once done, access the application through the load balancer endpoint, available in the outputs inside of the terminal. It should present you with a "hello world" display.
+## Usage
 
-Outputs:
-![image info](images/outputs.png)
+### Initialization
 
-**EC2 Configuration**:
+Initialize Terraform using the following command:
 
-The EC2 instance benefits from bootstrapping via user data. However, some manual interventions are essential:
+```bash
+terraform init
+```
 
-1. Update the Prometheus configuration target using your load balancer endpoint. You can achieve this by revising the user data within the EC2 resource, replacing `<YOUR-LOAD-BALANCER-HERE>`.
+### Plan & Apply
 
-2. Reapply Terraform: `terraform apply`
+Initialize Terraform using the following command:
 
-3. Post-configuration, Grafana can be accessed at `<EC2-Public-IP>:3000` and Prometheus at `<EC2-Public-IP>:9090`.
+```bash
+terraform plan
+```
+```bash
+terraform apply
+```
 
-**Sidenote**: Multiple solutions exist for this configuration. However, to ensure clarity and employ minimal services and simplicity for this project, I opted for this particular approach.
+### Destroy
 
-**Sidenote Sidenote**: You may have to exec into the SSH into the instance and run `sudo docker-compose up` manually.
+Initialize Terraform using the following command:
 
-![image info](images/docker-compose.png)
+```bash
+terraform destroy
+```
 
-**Sidenote Sidenote Sidenote**: If you need further insights into your application, you can view the Cloudwatch logs:
+## Outputs
 
-![image info](images/cloudwatch.png)
+This project provides the following outputs:
+
+- **load_balancer_dns_name**: The DNS name of the application load balancer.
+- **promgraf_linux_public_ip**: The public IP of the promgraf Linux EC2 instance.
+
+## Important Notes
+
+- Ensure that you have the necessary permissions and AWS credentials configured to create and manage AWS resources.
+- Review the Terraform configuration files to customize settings such as instance types, image versions, and security groups to suit your requirements.
+- The EC2 instance's security group is open on ports 22 (SSH), 3000 (Grafana), and 9090 (Prometheus) for demonstration purposes. It's crucial to restrict these in a production environment.
+- Replace `<YOUR-LOAD-BALANCER-HERE>` in the `user_data` of the EC2 instance with the name of your load balancer, then reapply.
+- The default region is us-east-1, but you can change it in the `vars.tf` file.
+- The default EC2 instance type is t2.micro. Ensure your AWS account has available t2.micro instances if you're using the AWS Free Tier.
+- The default key pair for the EC2 instance is `prom-keypair`. Ensure you have this key pair available in your AWS account or change it to a key pair you own.
+- The default application name for the ECS service and ECR repository is `safemoon`.
 
 ---
 
@@ -86,7 +110,7 @@ Removing the sidecar brought clarity. My understanding had been clouded by routi
 
 ![image info](images/metrics.png)
 
-### 🌟 **The Final Steps: Prometheus and Terraform**
+### **The Final Steps: Prometheus and Terraform**
 With metrics in hand, the subsequent tasks were simpler: set up a Prometheus instance and configure it for the load balancer. Leveraging Docker-compose, a consistent ally in my toolkit, I fashioned a promgraf stack—a helm chart equivalent in this context. With everything functional, all that remained was harnessing Terraform.
 
 Examples:
