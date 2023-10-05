@@ -82,7 +82,7 @@ This project provides the following outputs:
 - The default EC2 instance type is t2.micro. Ensure your AWS account has available t2.micro instances if you're using the AWS Free Tier.
 - The default key pair for the EC2 instance is `prom-keypair`. Ensure you have this key pair available in your AWS account or change it to a key pair you own.
 - The default application name for the ECS service and ECR repository is `safemoon`.
-
+- Navigate to the app folder: `cd app` and execute `./push-to-ecr.sh` with your credentials. This can also be done manually, utilizing the push commands.
 ---
 
 ## My Journey with the Project
