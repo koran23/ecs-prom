@@ -47,8 +47,6 @@ terraform init
 
 ### Plan & Apply
 
-Initialize Terraform using the following command:
-
 ```bash
 terraform plan
 ```
@@ -57,8 +55,6 @@ terraform apply
 ```
 
 ### Destroy
-
-Initialize Terraform using the following command:
 
 ```bash
 terraform destroy
