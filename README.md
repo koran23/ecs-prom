@@ -1,6 +1,6 @@
 ## Instructions:
 
-*While I recognize that this might not be the optimal solution, it effectively serves as a valuable proof of concept (POC).*
+*While I recognize that this might not be the optimal solution, it effectively serves as a valuable proof of concept (POC). It's also crucial to understand the associated costs. While I tried my best to remain within the free tier as much as possible, there might be some (small) incurred expenses.*
 
 # AWS Infrastructure Deployment with Terraform
 
