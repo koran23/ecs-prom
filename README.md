@@ -72,13 +72,17 @@ This project provides the following outputs:
 - Ensure that you have the necessary permissions and AWS credentials configured to create and manage AWS resources.
 - Review the Terraform configuration files to customize settings such as instance types, image versions, and security groups to suit your requirements.
 - The EC2 instance's security group is open on ports 22 (SSH), 3000 (Grafana), and 9090 (Prometheus) for demonstration purposes. It's crucial to restrict these in a production environment.
-- Replace `<YOUR-LOAD-BALANCER-HERE>` in the `user_data` of the EC2 instance with the name of your load balancer, then reapply.
-**Sidenote**: You may have to exec into the SSH into the instance and run `sudo docker-compose up -d` manually.
+- Exec into the instance via SSH and replace `<YOUR-LOAD-BALANCER-HERE>` in the `prometheus.yml` with the name of your load balancer. Then run `sudo docker-compose up -d`. 
 - The default region is us-east-1, but you can change it in the `vars.tf` file.
 - The default EC2 instance type is t2.micro. Ensure your AWS account has available t2.micro instances if you're using the AWS Free Tier.
 - The default key pair for the EC2 instance is `prom-keypair`. Ensure you have this key pair available in your AWS account or change it to a key pair you own.
 - The default application name for the ECS service and ECR repository is `safemoon`.
 - Navigate to the app folder: `cd app` and execute `./push-to-ecr.sh` with your credentials. This can also be done manually, utilizing the push commands.
+
+## Bugs
+
+- After re-applying the terraform code, the old EC2 instance public IPV4 address is in the output.
+
 ---
 
 ## My Journey with the Project
