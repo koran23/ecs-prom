@@ -30,6 +30,13 @@ resource "aws_security_group" "promgraf" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 9106
+    to_port     = 9106
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   vpc_id = aws_default_vpc.default_vpc.id
 }
 
@@ -40,7 +47,7 @@ resource "aws_instance" "promgraf_linux" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.promgraf.id]
 
-  user_data = file("${path.module}/setup-instance.sh")
+  user_data = file("setup-instance.sh")
 
   tags = {
     Name = "Monitoring"
