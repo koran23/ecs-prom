@@ -8,14 +8,23 @@ TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-m
 INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
 REGION=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//')
 
+# Retrieve keys from Secrets Manager
+# CLOUDWATCH_KEYS_JSON=$(aws secretsmanager get-secret-value --secret-id YOUR_SECRET_ID_HERE --query SecretString --output text)
+# ACCESS_KEY=$(echo $CLOUDWATCH_KEYS_JSON | jq -r '.accessKey')
+# SECRET_KEY=$(echo $CLOUDWATCH_KEYS_JSON | jq -r '.secretKey')
+
+
 # Update system packages
 sudo yum update -y
 
 # Install AWS CLI (if not already installed)
 sudo yum install aws-cli -y
 
+# Install jq
+yum install jq -y
+
 # Retrieve secret from Secrets Manager
-# GRAFANA_PASSWORD=$(aws secretsmanager get-secret-value --secret-id YOUR_SECRET_ID_HERE --query SecretString --output text)
+GRAFANA_PASSWORD=$(aws secretsmanager get-secret-value --secret-id YOUR_SECRET_ID_HERE --query SecretString --output text)
 
 # Install Docker
 sudo amazon-linux-extras install docker
@@ -36,26 +45,24 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['<LOAD-BALANCER>']
-
-  - job_name: 'cloudwatch-exporter'
-    static_configs:
-      - targets: ['cloudwatch-exporter:9106']
 EOL
 
-# CloudWatch Exporter Configuration
-cat <<EOL > /home/ec2-user/cloudwatch-exporter-config.yml
----
-region: $REGION  
-metrics:
- - aws_namespace: AWS/EC2
-   aws_metric_name: CPUUtilization
-   aws_dimensions: [InstanceId]
-   aws_dimension_select:
-     InstanceId: [$INSTANCE_ID]  
-   aws_statistics: [Average]
+# Grafana CloudWatch data source provisioning
+cat <<EOL > /home/ec2-user/datasource.yaml
+apiVersion: 1
+
+datasources:
+  - name: CloudWatch
+    type: cloudwatch
+    jsonData:
+      authType: keys
+      defaultRegion: us-east-1
+    secureJsonData:
+      accessKey: '$ACCESS_KEY'
+      secretKey: '$SECRET_KEY'
 EOL
 
-# Docker Compose Configuration (Including CloudWatch Exporter)
+# Docker Compose Configuration
 cat <<EOL > /home/ec2-user/docker-compose.yml
 version: '3'
 services:
@@ -74,14 +81,10 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-storage:/var/lib/grafana
-
-  cloudwatch-exporter:
-    image: prom/cloudwatch-exporter:latest
-    ports:
-      - "9106:9106"
-    volumes:
-      - ./cloudwatch-exporter-config.yml:/config.yml
+      - ./datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
 
 volumes:
   grafana-storage:
 EOL
+
+sudo docker-compose up -d
