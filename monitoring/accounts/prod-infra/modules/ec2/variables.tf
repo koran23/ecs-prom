@@ -1,0 +1,9 @@
+variable "ami_id" {}
+variable "domain_name" {}
+variable "env" {}
+variable "key_name" {}
+variable "name" {}
+variable "region" {}
+variable "resource_keys" {}
+variable "tags" {}
+variable "vpc_name" {}
