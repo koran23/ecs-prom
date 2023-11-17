@@ -1,0 +1,666 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [],
+    "panels": [
+      {
+        "aliasColors": {},
+        "datasource": "CloudWatch",
+        "description": "CPU Utilization for selected EC2 instances",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} CPU Utilization",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "CPUUtilization",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "A",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Average"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU Utilization",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "percent",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "datasource": "CloudWatch",
+        "description": "Disk Read Operations",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 3,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} Disk Read Ops",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "DiskReadOps",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "B",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Sum"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Disk Read Ops",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "ops",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "datasource": "CloudWatch",
+        "description": "Network In",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 4,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} Network In",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "NetworkIn",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "C",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Average"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Network In",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "bytes",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "datasource": "Cloudwatch",
+        "description": "Network Out",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 5,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} Network Out",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "NetworkOut",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "D",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Average"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Network Out",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "bytes",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "datasource": "CloudWatch",
+        "description": "Status Check Failed - System",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "id": 6,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} Status Check Failed - System",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "StatusCheckFailed_System",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "E",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Average"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "System Status Checks",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": 1,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "datasource": "CloudWatch",
+        "description": "Status Check Failed - Instance",
+        "editable": true,
+        "error": false,
+        "fill": 1,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "id": 7,
+        "interval": "5m",
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "percentage": false,
+        "pluginVersion": "6.5.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "{{instance_id}} Status Check Failed - Instance",
+            "dimensions": {
+              "InstanceId": "$instance_id"
+            },
+            "expression": "",
+            "highResolution": false,
+            "id": "",
+            "metricName": "StatusCheckFailed_Instance",
+            "namespace": "AWS/EC2",
+            "period": "300",
+            "refId": "F",
+            "region": "us-east-1",
+            "returnData": false,
+            "statistics": [
+              "Average"
+            ],
+            "usedExpression": false
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Instance Status Checks",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": 1,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      }
+    ],
+    "schemaVersion": 18,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {},
+          "datasource": "CloudWatch",
+          "definition": "dimension_values(us-east-1, AWS/EC2, CPUUtilization, InstanceId)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Instance ID",
+          "multi": true,
+          "name": "instance_id",
+          "options": [],
+          "query": "dimension_values(us-east-1, AWS/EC2, CPUUtilization, InstanceId)",
+          "refresh": 2,
+          "regex": "",
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "",
+    "title": "EC2 Instances Monitoring",
+    "uid": "new-dashboard",
+    "version": 0
+  }
+  
