@@ -117,10 +117,12 @@ resource "aws_iam_policy" "ecs_service_discovery" {
     Statement = [
       {
         Action = [
+          "ecs:ListClusters",
+          "ecs:DescribeClusters",
           "ecs:ListTasks",
           "ecs:DescribeTasks",
-          "ecs:ListServices",  # Added this line
-          "ecs:DescribeServices"  # Added permission to describe ECS services
+          "ecs:ListServices",
+          "ecs:DescribeServices"
         ],
         Effect   = "Allow",
         Resource = "*"
